@@ -1,44 +1,20 @@
 spring:
-  profiles:
-    active: local
-
----
-spring:
-  config:
-    activate:
-      on-profile: local
   datasource:
-    url: jdbc:h2:mem:testdb;MODE=MySQL
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
+    url: ${MY_SQL_URL}
+    username: ${MY_SQL_USER}
+    password: ${MY_SQL_PW}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
 
 jwt:
-  secret: vms706s5v766v5675v6756v576v576v567v567v567v567v567v567v567v567v567
-  access-expiration: 3600000 # 1 hour
-  refresh-expiration: 604800000 # 7 days
-
----
-spring:
-  config:
-    activate:
-      on-profile: prod
-  datasource:
-    url: jdbc:mysql://db:3306/esm?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: password
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: false
+  secret: ${SECRET_KEY}
+  access-expiration: 3600000 # 1시간
+  refresh-expiration: 604800000 # 7일
